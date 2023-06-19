@@ -29,7 +29,7 @@ headers = {
     "User-Agent":"Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0",
     "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
     "Accept-Language":"en-US,en;q=0.5",
-    "Accept-Encoding":"gzip, deflate",
+#    "Accept-Encoding":"gzip, deflate",
     "Content-Type":"application/x-www-form-urlencoded",
 #    "DNT":"1",
 #    "Origin":"",
@@ -76,7 +76,7 @@ def count_node(method, p):
         print("GET")
         
     elif method == "POST":
-         for i in range(1, count_node_max_num):
+         for i in range(1, count_node_max_num+1):
              q = "count(" + p +")=" + str(i)
              
              query = {
@@ -92,9 +92,9 @@ def count_node(method, p):
              
              try:
                  with urllib.request.urlopen(req) as res:
-#                     text = res.read().decode("utf-8", "ignore")
-                     decompressed_data = zlib.decompress(res.read(), 16+zlib.MAX_WBITS)
-                     text = decompressed_data.decode("utf-8")
+                     text = res.read().decode("utf-8", "ignore")
+#                     decompressed_data = zlib.decompress(res.read(), 16+zlib.MAX_WBITS)
+#                     text = decompressed_data.decode("utf-8")
 #                     print(text)
                      
                      if (text.find(match_string) != -1):
@@ -120,7 +120,7 @@ def count_string_length(method, p):
         print("GET")
         
     elif method == "POST":
-         for i in range(1, count_string_length_max_num):
+         for i in range(1, count_string_length_max_num+1):
              q = "string-length(" + p +")=" + str(i)
              
              query = {
@@ -136,9 +136,9 @@ def count_string_length(method, p):
              
              try:
                  with urllib.request.urlopen(req) as res:
-#                     text = res.read().decode("utf-8", "ignore")
-                     decompressed_data = zlib.decompress(res.read(), 16+zlib.MAX_WBITS)
-                     text = decompressed_data.decode("utf-8")
+                     text = res.read().decode("utf-8", "ignore")
+#                     decompressed_data = zlib.decompress(res.read(), 16+zlib.MAX_WBITS)
+#                     text = decompressed_data.decode("utf-8")
 #                     print(text)
                      
                      if (text.find(match_string) != -1):
@@ -183,9 +183,9 @@ def search_substring(method, p, c):
                  
                  try:
                      with urllib.request.urlopen(req) as res:
-#                         text = res.read().decode("utf-8", "ignore")
-                         decompressed_data = zlib.decompress(res.read(), 16+zlib.MAX_WBITS)
-                         text = decompressed_data.decode("utf-8")
+                         text = res.read().decode("utf-8", "ignore")
+#                         decompressed_data = zlib.decompress(res.read(), 16+zlib.MAX_WBITS)
+#                         text = decompressed_data.decode("utf-8")
 #                         print(text)
                          
                          if (text.find(match_string) != -1):
@@ -208,7 +208,7 @@ def search_substring(method, p, c):
         print("string:" + s)
     
    
-def search_xpath(method, p, c):
+def search_xpath(method, p):
     if method == "GET":
          print("GET")
          
@@ -223,7 +223,7 @@ def search_xpath(method, p, c):
                     
             for i in range(1, ret+1):
                 path = p + "[" + str(i) + "]/*"
-                search_xpath(method, path, ret)
+                search_xpath(method, path)
                             
     else:
         print("method error.")
@@ -232,7 +232,7 @@ def search_xpath(method, p, c):
     
 def main(argv):
     p = "/*"	# root
-    search_xpath(method, p, 1);
+    search_xpath(method, p);
     
         
 if __name__ == '__main__':
